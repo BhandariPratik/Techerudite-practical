@@ -1,0 +1,8 @@
+
+#Main directory 
+node_modules
+package-lock.json
+
+#Environment variable
+backend/.env
+web/.env
