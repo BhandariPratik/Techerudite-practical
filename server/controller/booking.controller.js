@@ -7,11 +7,12 @@ export const createBooking = async (req, res) => {
   if (duplicate) return res.status(400).json({ message: "Duplicate booking not allowed" });
 
   const formattedDateTime = moment(bookingTime).format("YYYY-MM-DD HH:mm:ss");
+  const formattedDate = moment(bookingTime).format("YYYY-MM-DD");
 
   const booking = await Booking.create({
     customerName,
     customerEmail,
-    bookingDate,
+    bookingDate :formattedDate,
     bookingType,
     bookingSlot,
     bookingTime :formattedDateTime,
@@ -21,8 +22,9 @@ export const createBooking = async (req, res) => {
 };
 
 const isBookingDuplicate = async (date, type, slot) => {
+  const formattedDate = moment(date).format("YYYY-MM-DD");
   const existingBooking = await Booking.findOne({
-    where: { bookingDate: date },
+    where: { bookingDate: formattedDate },
   });
 
   console.log('date--->',date)
