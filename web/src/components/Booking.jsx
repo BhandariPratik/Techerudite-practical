@@ -13,7 +13,9 @@ const Booking = () => {
  
   const onSubmit = async (data) => {
     console.log("Data------>", data);
+    
     try {
+      data['bookingTime'] = bookingTime
       const response = await apiCall("POST", `/bookings/`, data);
   
       if (response.success) { 

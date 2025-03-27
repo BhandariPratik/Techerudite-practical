@@ -2,11 +2,11 @@ import Booking from '../models/booking.js';
 
 
 export const createBooking = async (req, res) => {
-  console.log('request user',req.user)
   const { customerName, customerEmail, bookingDate, bookingType, bookingSlot, bookingTime } = req.body;
-
   const duplicate = await isBookingDuplicate(bookingDate, bookingType, bookingSlot);
   if (duplicate) return res.status(400).json({ message: "Duplicate booking not allowed" });
+
+  const formattedDateTime = moment(bookingTime).format("YYYY-MM-DD HH:mm:ss");
 
   const booking = await Booking.create({
     customerName,
@@ -14,7 +14,7 @@ export const createBooking = async (req, res) => {
     bookingDate,
     bookingType,
     bookingSlot,
-    bookingTime,
+    bookingTime :formattedDateTime,
   });
 
   res.status(201).json({ message: "Booking created successfully", booking });
