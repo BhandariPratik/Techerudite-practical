@@ -1,5 +1,5 @@
 import Booking from '../models/booking.js';
-
+import moment from 'moment'
 
 export const createBooking = async (req, res) => {
   const { customerName, customerEmail, bookingDate, bookingType, bookingSlot, bookingTime } = req.body;
